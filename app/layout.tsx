@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
 
-        <div className="container mx-auto px-4 py-8 capitalize">
+        <div className="container mx-auto px-4 py-8 capitalize overflow-hidden">
           <Navigation />
           <main className="min-h-screen p-8">
             {children}

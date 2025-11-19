@@ -5,6 +5,7 @@ import getMagicalIcon from "@/utils";
 import { PackageIcon, SparkleIcon, StarIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { numberFormat } from "@/utils/constants";
+import Link from "next/link";
 
 
 type PotionCardProps = PotionType & {
@@ -14,6 +15,7 @@ type PotionCardProps = PotionType & {
 export const PotionCard = (
   {
     name,
+    full_name,
     description,
     topics,
     owner: { login, avatar_url },
@@ -25,7 +27,7 @@ export const PotionCard = (
   }: PotionCardProps,
 ) => {
   return (
-    <div>
+    <Link href={`/potion/${full_name.replace('/', '__')}`}>
       <Card
         key={`${name}-${index}`}
         className={`potion-card relative group cursor-pointer 
@@ -93,6 +95,6 @@ export const PotionCard = (
           </div>
         </CardContent>
       </Card>
-    </div>
+    </Link>
   );
 };
