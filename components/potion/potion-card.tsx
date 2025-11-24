@@ -1,11 +1,10 @@
 import { PotionType } from "@/types/github";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import Image from "next/image";
 import getMagicalIcon from "@/utils";
-import { PackageIcon, SparkleIcon, StarIcon } from "lucide-react";
+import { SparkleIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
-import { numberFormat } from "@/utils/constants";
 import Link from "next/link";
+import { PotionHeader, PotionStats } from '@/components/potion/potion-common';
 
 
 type PotionCardProps = PotionType & {
@@ -18,7 +17,7 @@ export const PotionCard = (
     full_name,
     description,
     topics,
-    owner: { login, avatar_url },
+    owner,
     magicalPotions,
     forks_count,
     stargazers_count,
@@ -38,20 +37,7 @@ export const PotionCard = (
         </div>
 
         <CardHeader className="p-6 mb-0">
-          <div className="flex items-center mb-2">
-            <div className="relative h-10 w-10 rounded-full overflow-hidden ring-2 ring-purple-500/20 mr-2">
-              <Image
-                src={avatar_url}
-                fill
-                alt={login}
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <h3 className="font-bold text-lg">{name}</h3>
-              <p className="text-xs ">{login}</p>
-            </div>
-          </div>
+          <PotionHeader name={name} owner={owner} />
         </CardHeader>
 
         <CardContent className="p-6 pt-3">
@@ -69,17 +55,7 @@ export const PotionCard = (
           </p>
 
           {/* repo numbers */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-2">
-              <StarIcon className="w-3.5 h-3.5 text-yellow-400" />
-              <p>{numberFormat(stargazers_count)}</p>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <PackageIcon className="w-3.5 h-3.5 text-blue-400" />
-              <p>{numberFormat(forks_count)}</p>
-            </div>
-          </div>
+          <PotionStats stargazersCount={stargazers_count} forksCount={forks_count}/>
 
           {/* badges */}
           <div className="flex items-center gap-2">
