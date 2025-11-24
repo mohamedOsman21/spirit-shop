@@ -9,7 +9,7 @@ export default function Navigation() {
                 spirit shop
             </Link>
 
-            <Link href={'/mystrey potion'} className="px-4 py-2
+            <Link href={'/mystrey-potion'} className="px-4 py-2
             rounded-lg bg-secondary text-foreground
             hover:bg-secondary/80 transition-colors">
                 mystery potion 🔥

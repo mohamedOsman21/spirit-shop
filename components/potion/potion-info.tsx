@@ -25,7 +25,7 @@ export default function PotionInfo({ potion }: PotionInfoType) {
     topics,
     language,
     updated_at,
-    magicalPotions,
+    magicalPotions
   } = potion;
 
   const brewingDifficulty = (forks_count / (stargazers_count || 1)) * 100;
@@ -56,10 +56,7 @@ export default function PotionInfo({ potion }: PotionInfoType) {
               </PotionInfoCard>
 
               <PotionInfoCard title="Github Stats">
-                <PotionStats
-                  stargazersCount={stargazers_count}
-                  forksCount={forks_count}
-                />
+                <PotionStats stargazersCount={stargazers_count} forksCount={forks_count} />
               </PotionInfoCard>
 
               <PotionInfoCard title="Language">

@@ -1,4 +1,4 @@
-import { GitHubRepo, MagicalPotions, PotionType } from "@/types/github";
+import { GitHubRepo} from "@/types/github";
 import { MAGICAL_TYPES } from "@/utils/constants";
 
 const GITHUB_API_URL = "https://api.github.com";
@@ -55,7 +55,7 @@ export async function fetchingRepos() {
     }
 }
 
-export async function fetchingRepo(owner: string , repo: string) {
+export async function fetchingRepo(owner: string, repo: string) {
 
     const url = `${GITHUB_API_URL}/repos/${owner}/${repo}`;
     const githubToken = process.env.GITHUB_TOKEN;
@@ -68,7 +68,7 @@ export async function fetchingRepo(owner: string , repo: string) {
     }
 
     try {
-        const response = await fetch(url, { headers, next: {revalidate: 3600} });
+        const response = await fetch(url, { headers, next: { revalidate: 3600 } });
         if (!response.ok) {
             throw new Error(`failed to fetch potion`);
         }
@@ -78,5 +78,41 @@ export async function fetchingRepo(owner: string , repo: string) {
     } catch (error) {
         console.error((error as Error).message);
         return {};
+    }
+}
+
+
+// random fetch
+
+export async function RandomRepo() {
+
+    const url = `${GITHUB_API_URL}/search/repositories?q=topic:javascript+stars:>7000&sort=stars&order=desc`;
+    const githubToken = process.env.GITHUB_TOKEN;
+
+    const headers = {
+        Accept: 'application/vnd.github+json',
+        ...(githubToken && {
+            Authorization: `Bearer ${githubToken}`
+        }),
+    }
+
+    try {
+        const response = await fetch(url, { headers, cache: 'no-store' });
+        if (!response.ok) {
+            throw new Error(`failed to fetch potions`);
+        }
+        const randomRepo = Math.floor(Math.random() * 29)
+        const data = await response.json();
+
+        const changedItems = data.items[randomRepo];
+        return transformRepoPotion(changedItems);
+    } catch (error) {
+        if(
+            error instanceof Error && 'digest' in error && error.digest === "DYNAMIC_SERVER_USAGE"
+        ) {
+            throw error;
+        }
+        console.error((error as Error).message);
+        return [];
     }
 }
