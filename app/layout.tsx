@@ -12,10 +12,17 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+const isDev = process.env.NODE_ENV === "development"
+
+export const ORIGIN_URL = isDev? "http://localhost:3000": '';
 
 export const metadata: Metadata = {
   title: "spirit shop",
-  description: "this is a git repos shop",
+  description: "open source spirit shop - discover magical potions brewed from the powers of popular open-source tools",
+  metadataBase: new URL(ORIGIN_URL),
+  alternates: {
+    canonical: ORIGIN_URL,
+  }
 };
 
 export default function RootLayout({

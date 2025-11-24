@@ -4,6 +4,30 @@ import { fetchingRepo } from "@/lib/github";
 import { PotionType } from "@/types/github";
 import { notFound } from "next/navigation";
 
+type MetadataParams = {
+  params: Promise<{ slug: string }>;
+};
+
+export const generateMetadata = async ({ params }: MetadataParams) => {
+  const { slug } = await params;
+
+  const [owner, repo] = slug.split("__");
+
+  const potion = (await fetchingRepo(owner, repo)) as PotionType;
+
+  if (!potion) {
+    notFound();
+  }
+
+  return {
+    title: `${potion?.name}`,
+    description: potion?.description,
+    alternates: {
+      canonical: `/potion/${owner}__${repo}`,
+    },
+  };
+};
+
 export async function generateStaticParams() {
   const popularRepos = [
     "facebook__react",
