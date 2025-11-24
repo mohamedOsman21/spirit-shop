@@ -1,6 +1,6 @@
 import { PotionType } from "@/types/github";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import getMagicalIcon from "@/utils";
+import {getMagicalIcon} from "@/utils";
 import { SparkleIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
